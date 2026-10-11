@@ -27,3 +27,5 @@ def inicio():
 
 from rotas import clientes, senioridade, tatuadores, agendamentos, estilos   # ← adiciona estilos aqui
 app.include_router(estilos.router, prefix="/estilos", tags=["Estilos"])   # ← registra a nova rota
+from rotas import clientes, senioridade, tatuadores, agendamentos, estilos, usuarios 
+app.include_router(usuarios.router, prefix="/usuarios", tags=["Usuários"])
