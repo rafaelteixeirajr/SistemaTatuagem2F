@@ -107,7 +107,7 @@ E adicione `dependencies=[Depends(verificar_token)]` nas 5 rotas que devem exigi
 
 ```python
 app.include_router(login.router, tags=["Login"])
-app.include_router(usuarios.router, prefix="/usuarios", tags=["Usuários"])
+app.include_router(usuarios.router, prefix="/usuarios", tags=["Usuários"]) 
 app.include_router(clientes.router, prefix="/clientes", tags=["Clientes"], dependencies=[Depends(verificar_token)])
 app.include_router(senioridade.router, prefix="/senioridade", tags=["Senioridade"], dependencies=[Depends(verificar_token)])
 app.include_router(estilos.router, prefix="/estilos", tags=["Estilos"], dependencies=[Depends(verificar_token)])
