@@ -1,6 +1,6 @@
 // endereço da nossa API backend
 const API = 'http://127.0.0.1:8000'
-
+protegerPagina()   // bloqueia a página se não tiver login
 // elementos do formulário e do botão de enviar
 const formSenioridade = document.getElementById('form-senioridade')
 const botaoSubmit = document.getElementById('btn-submit-senioridade')
@@ -16,7 +16,7 @@ function limparFormulario() {
 
 // ─── Carrega a lista de senioridades ao abrir a página ───
 async function listarSenioridades() {
-  const resposta = await fetch(`${API}/senioridade`)
+  const resposta = await fetchAutenticado(`${API}/senioridade`)
   const senioridades = await resposta.json()
 
   const corpo = document.getElementById('corpo-tabela')
@@ -45,13 +45,13 @@ formSenioridade.addEventListener('submit', async (e) => {
   const idSenioridade = formSenioridade.dataset.idSenioridade
 
   if (idSenioridade) {
-    await fetch(`${API}/senioridade/${idSenioridade}`, {
+    await fetchAutenticado(`${API}/senioridade/${idSenioridade}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(senioridade)
     })
   } else {
-    await fetch(`${API}/senioridade`, {
+    await fetchAutenticado(`${API}/senioridade`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(senioridade)
@@ -76,6 +76,6 @@ function preencherFormularioEdicao(senioridade) {
 async function deletarSenioridade(id) {
   if (!confirm('Tem certeza que deseja excluir esta senioridade?')) return
 
-  await fetch(`${API}/senioridade/${id}`, { method: 'DELETE' })
+  await fetchAutenticado(`${API}/senioridade/${id}`, { method: 'DELETE' })
   listarSenioridades()
 }

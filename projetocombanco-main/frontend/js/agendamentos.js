@@ -1,6 +1,6 @@
 // endereço da nossa API backend
 const API = 'http://127.0.0.1:8000'
-
+protegerPagina()   // bloqueia a página se não tiver login
 // elementos do formulário e do botão de enviar
 const formAgendamento = document.getElementById('form-agendamento')
 const botaoSubmit = document.getElementById('btn-submit-agendamento')
@@ -18,7 +18,7 @@ function limparFormulario() {
 
 // ─── Busca os clientes na API e preenche o <select> ───
 async function carregarClientes() {
-  const resposta = await fetch(`${API}/clientes`)
+  const resposta = await fetchAutenticado(`${API}/clientes`)
   const clientes = await resposta.json()
 
   const select = document.getElementById('idcliente')
@@ -31,7 +31,7 @@ async function carregarClientes() {
 
 // ─── Busca os tatuadores na API e preenche o <select> ───
 async function carregarTatuadores() {
-  const resposta = await fetch(`${API}/tatuadores`)
+  const resposta = await fetchAutenticado(`${API}/tatuadores`)
   const tatuadores = await resposta.json()
 
   const select = document.getElementById('idtatuador')
@@ -46,7 +46,7 @@ carregarClientes()
 carregarTatuadores()
 
 async function listarAgendamentos() {
-  const resposta = await fetch(`${API}/agendamentos`)
+  const resposta = await fetchAutenticado(`${API}/agendamentos`)
   const agendamentos = await resposta.json()
 
   const corpo = document.getElementById('corpo-tabela')
@@ -98,13 +98,13 @@ formAgendamento.addEventListener('submit', async (e) => {
   let idParaUpload = idAgendamento   // qual id vamos usar pra anexar a imagem, se houver uma
 
   if (idAgendamento) {
-    await fetch(`${API}/agendamentos/${idAgendamento}`, {
+    await fetchAutenticado(`${API}/agendamentos/${idAgendamento}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(agendamento)
     })
   } else {
-    const resposta = await fetch(`${API}/agendamentos`, {
+    const resposta = await fetchAutenticado(`${API}/agendamentos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(agendamento)
@@ -119,7 +119,7 @@ formAgendamento.addEventListener('submit', async (e) => {
     const formData = new FormData()   // FormData, não JSON — porque tem um arquivo dentro
     formData.append('arquivo', arquivo)   // "arquivo" precisa ser o mesmo nome do parâmetro no FastAPI
 
-    await fetch(`${API}/agendamentos/${idParaUpload}/desenho`, {
+    await fetchAutenticado(`${API}/agendamentos/${idParaUpload}/desenho`, {
       method: 'POST',
       body: formData
       // repare que aqui NÃO colocamos o header Content-Type — o navegador
