@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  color: #fff;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/dash.webp") center / cover no-repeat fixed;
+}
+
+h1 {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ---------- Navbar ---------- */
+.navbar-estudio {
+  background-color: #000;
+  min-height: 90px;
+  padding: 1rem 0;
+}
+
+.navbar-estudio .logo {
+  height: 64px;
+  width: auto;
+}
+
+.navbar-estudio .navbar-brand span {
+  font-family: "Cinzel", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* ---------- Botões do painel ---------- */
+.btn-painel {
+  color: #fff;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.08);   /* branco leve e transparente */
+  border: 2px solid #fff;                  /* borda branca bem definida */
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.btn-painel:hover,
+.btn-painel:focus {
+  color: #000;
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-painel:active {
+  color: #000;
+  background: #fff;
+  border-color: #fff;
+}

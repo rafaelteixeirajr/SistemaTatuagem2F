@@ -2,55 +2,70 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Estilos — Estúdio de Tatuagem</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estilos — And'Ǝ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/paginas.css">
 </head>
-<body class="container py-4">
+<body>
 
-  <nav class="navbar navbar-dark bg-dark mb-4">
-  <div class="container">
-    <span class="navbar-brand">Estúdio de Tatuagem</span>
-    <div>
-      <a href="clientes.html" class="text-light me-3">Clientes</a>
-      <a href="senioridade.html" class="text-light me-3">Senioridade</a>
-      <a href="estilos.html" class="text-light me-3">Estilos</a>
-      <a href="tatuadores.html" class="text-light me-3">Tatuadores</a>
-      <a href="agendamentos.html" class="text-light me-3">Agendamentos</a>
-      <button onclick="sair()" class="btn btn-outline-light btn-sm">Sair</button>
+  <header class="topo">
+    <a href="dashboard.html" class="topo-logo" aria-label="Voltar ao dashboard">
+      <img src="img/logo.png" alt="Logo And'Ǝ">
+      <span>And'Ǝ</span>
+    </a>
+
+    <nav class="topo-links">
+      <a href="clientes.html">Clientes</a>
+      <a href="tatuadores.html">Tatuadores</a>
+      <a href="agendamentos.html">Agendamentos</a>
+      <a href="senioridade.html">Senioridade</a>
+      <a href="estilos.html" class="ativo">Estilos</a>
+    </nav>
+
+    <button onclick="sair()" class="topo-sair">
+      <i class="bi bi-box-arrow-right"></i> Sair
+    </button>
+  </header>
+
+  <main class="conteudo">
+
+    <h1 class="titulo-pagina">Estilos</h1>
+
+    <!-- Bloco escondido: provavelmente copiado do tatuadores.html.
+         Mantido só para não quebrar o estilos.js caso ele use este id.
+         Se o JS não usa, apague este bloco. -->
+    <div hidden>
+      <div id="lista-estilos"></div>
     </div>
-  </div>
-</nav>
 
-  <h1>Estilos</h1>
+    <!-- Formulário para cadastrar novo estilo -->
+    <form id="form-estilo" class="form-cadastro form-simples">
+      <input type="text" id="descricao" class="campo" placeholder="Descrição (ex: Blackwork)" required>
+      <button id="btn-submit-estilo" type="submit" class="btn-cadastrar">Cadastrar</button>
+    </form>
 
-  <div class="col-md-12">
-  <label class="form-label">Estilos que domina</label>
-  <div id="lista-estilos" class="d-flex flex-wrap gap-3">
-    <!-- os checkboxes são preenchidos pelo JavaScript -->
-  </div>
-</div>
-
-  <form id="form-estilo" class="row g-2 mt-2 mb-4">
-    <div class="col-md-4">
-      <input type="text" id="descricao" class="form-control" placeholder="Descrição (ex: Blackwork)" required>
+    <!-- Tabela onde os estilos vão aparecer -->
+    <div class="tabela-wrapper">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpo-tabela">
+          <!-- os estilos vão aparecer aqui -->
+        </tbody>
+      </table>
     </div>
-    <div class="col-md-2">
-      <button id="btn-submit-estilo" type="submit" class="btn btn-primary w-100">Cadastrar</button>
-    </div>
-  </form>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Descrição</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="corpo-tabela">
-    </tbody>
-  </table>
-  
+  </main>
+
   <script src="js/auth.js"></script>
   <script src="js/estilos.js"></script>
 

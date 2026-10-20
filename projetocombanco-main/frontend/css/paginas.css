@@ -1,0 +1,384 @@
+/* ---------- Variáveis ---------- */
+:root {
+  --branco: #fff;
+  --texto: #e6e6e6;
+  --texto-suave: #a8a8a8;
+  --borda: rgba(255, 255, 255, 0.35);
+  --painel: rgba(11, 11, 11, 0.85);
+  --altura-topo: 90px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+h1, p { margin: 0; }
+img { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; }
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding-top: var(--altura-topo);
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  color: var(--texto);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.8)),
+    url("../img/tatuando.jpg") center / cover no-repeat fixed;
+}
+
+h1 {
+  font-family: "Cinzel", serif;
+  color: var(--branco);
+}
+
+/* ---------- Topo (navbar) ---------- */
+.topo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--altura-topo);
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: #000;
+  border-bottom: 1px solid #222;
+}
+
+.topo-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  padding: 0.35rem 0.9rem;
+  color: var(--branco);
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.topo-logo:hover,
+.topo-logo:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--branco);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.topo-logo img { height: 60px; width: auto; }
+
+.topo-logo span {
+  font-family: "Cinzel", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.topo-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  overflow-x: auto;
+}
+
+.topo-links a {
+  padding: 0.5rem 0.9rem;
+  color: var(--texto-suave);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.topo-links a:hover,
+.topo-links a.ativo {
+  color: var(--branco);
+  border-bottom-color: var(--branco);
+}
+
+.topo-sair {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding: 0.5rem 1.1rem;
+  color: var(--branco);
+  background: transparent;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.topo-sair:hover,
+.topo-sair:focus-visible {
+  color: #000;
+  background: var(--branco);
+  border-color: var(--branco);
+  outline: none;
+}
+
+/* ---------- Conteúdo ---------- */
+.conteudo {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.titulo-pagina {
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ---------- Formulário de cadastro ---------- */
+/* A grade se ajusta sozinha à quantidade de campos */
+.form-cadastro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: var(--painel);
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.campo {
+  width: 100%;
+  min-width: 0;
+  padding: 0.55rem 0.8rem;
+  font: inherit;
+  color: #fff;
+  background: #151515;
+  border: 1px solid #000;
+  border-radius: 6px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.campo::placeholder { color: #777; }
+
+.campo:focus {
+  outline: none;
+  background: #1a1a1a;
+  border-color: #555;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+/* Select com seta própria */
+select.campo {
+  appearance: none;
+  padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23a8a8a8' stroke-width='2'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+}
+
+select.campo option {
+  color: #fff;
+  background: #151515;
+}
+
+/* Campos de data/hora (agendamentos): ícone claro no tema escuro */
+input.campo[type="date"],
+input.campo[type="time"],
+input.campo[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+.btn-cadastrar {
+  padding: 0.55rem;
+  font-weight: 500;
+  color: #0b0b0b;
+  background: #e6e6e6;
+  border: 1px solid #000;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-cadastrar:hover,
+.btn-cadastrar:focus-visible {
+  background: #fff;
+  outline: none;
+}
+
+/* ---------- Tabela ---------- */
+.tabela-wrapper {
+  overflow-x: auto;
+  background: var(--painel);
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--texto);
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  vertical-align: middle;
+  border: 1px solid #222;
+}
+
+.tabela thead th {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--branco);
+  background: #000;
+}
+
+.tabela tbody tr { transition: background 0.2s; }
+.tabela tbody tr:hover { background: rgba(255, 255, 255, 0.05); }
+
+/* ---------- Botões gerados pelo JS (editar/excluir) ---------- */
+.tabela .btn,
+.tabela button {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--branco);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.tabela .btn:hover,
+.tabela button:hover {
+  color: #000;
+  background: var(--branco);
+  border-color: var(--branco);
+}
+
+.tabela .btn-danger,
+.tabela .btn-outline-danger {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.tabela .btn-danger:hover,
+.tabela .btn-outline-danger:hover {
+  color: #fff;
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 992px) {
+  .topo-links { display: none; }
+  .topo-sair { margin-left: auto; }
+}
+
+@media (max-width: 576px) {
+  :root { --altura-topo: 76px; }
+
+  .topo { padding: 0 0.75rem; }
+  .topo-logo img { height: 46px; }
+  .topo-logo span { font-size: 1.4rem; letter-spacing: 2px; }
+
+  .conteudo { padding: 2rem 1rem 3rem; }
+}
+
+/* ---------- Grupo de checkboxes (ex.: estilos do tatuador) ---------- */
+.campo-grupo {
+  grid-column: 1 / -1;          /* ocupa a linha inteira do formulário */
+}
+
+.campo-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.lista-estilos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.lista-estilos label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.lista-estilos input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #e6e6e6;
+  cursor: pointer;
+}
+
+/* ---------- Textarea e campo de arquivo ---------- */
+.campo-texto {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.campo-arquivo {
+  padding: 0.4rem 0.6rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+
+.campo-arquivo::file-selector-button {
+  margin-right: 0.8rem;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  color: #0b0b0b;
+  background: #e6e6e6;
+  border: 1px solid #000;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.campo-arquivo::file-selector-button:hover {
+  background: #fff;
+}
+
+/* Miniatura do desenho na tabela */
+.tabela img {
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: cover;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+}
+
+/* ---------- Formulário simples (1 ou 2 campos) ---------- */
+.form-simples {
+  grid-template-columns: minmax(220px, 2fr) minmax(140px, 1fr);
+  max-width: 640px;
+}
+
+@media (max-width: 576px) {
+  .form-simples {
+    grid-template-columns: 1fr;
+  }
+}

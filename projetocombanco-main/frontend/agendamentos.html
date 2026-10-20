@@ -2,105 +2,99 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Agendamentos — Estúdio de Tatuagem</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agendamentos — And'Ǝ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/paginas.css">
 </head>
-<body class="container py-4">
+<body>
 
-  <nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container">
-      <span class="navbar-brand">Estúdio de Tatuagem</span>
-      <div>
-        <a href="clientes.html" class="text-light me-3">Clientes</a>
-        <a href="senioridade.html" class="text-light me-3">Senioridade</a>
-        <a href="tatuadores.html" class="text-light me-3">Tatuadores</a>
-        <a href="agendamentos.html" class="text-light">Agendamentos</a>
-      </div>
-    </div>
-  </nav>
+  <header class="topo">
+    <a href="dashboard.html" class="topo-logo" aria-label="Voltar ao dashboard">
+      <img src="img/logo.png" alt="Logo And'Ǝ">
+      <span>And'Ǝ</span>
+    </a>
 
-  <h1>Agendamentos</h1>
+    <nav class="topo-links">
+      <a href="clientes.html">Clientes</a>
+      <a href="tatuadores.html">Tatuadores</a>
+      <a href="agendamentos.html" class="ativo">Agendamentos</a>
+      <a href="senioridade.html">Senioridade</a>
+      <a href="estilos.html">Estilos</a>
+    </nav>
 
-  <!-- Formulário para cadastrar novo agendamento -->
-  <form id="form-agendamento" class="row g-2 mt-2 mb-4">
-    <div class="col-md-3">
-      <select id="idcliente" class="form-select" required>
+    <button onclick="sair()" class="topo-sair">
+      <i class="bi bi-box-arrow-right"></i> Sair
+    </button>
+  </header>
+
+  <main class="conteudo">
+
+    <h1 class="titulo-pagina">Agendamentos</h1>
+
+    <!-- Formulário para cadastrar novo agendamento -->
+    <form id="form-agendamento" class="form-cadastro">
+      <select id="idcliente" class="campo" required>
         <option value="">Cliente...</option>
       </select>
-    </div>
-    <div class="col-md-3">
-      <select id="idtatuador" class="form-select" required>
+      <select id="idtatuador" class="campo" required>
         <option value="">Tatuador...</option>
       </select>
-    </div>
-    <div class="col-md-2">
-      <input type="date" id="dataagendamento" class="form-control" required>
-    </div>
-    <div class="col-md-2">
-      <input type="time" id="horaagendamento" class="form-control" required>
-    </div>
-    <div class="col-md-2">
-      <input type="number" id="valortatuagem" class="form-control" placeholder="Valor (R$)" step="0.01" min="0">
-    </div>
-    <div class="col-md-12">
-      <textarea id="descricaotatuagem" class="form-control" placeholder="Descrição da tatuagem"></textarea>
-    </div>
-    <div class="col-md-4">
-  <label class="form-label">Desenho aprovado (imagem)</label>
-  <input type="file" id="desenho" class="form-control" accept="image/*">
-</div>
+      <input type="date" id="dataagendamento" class="campo" required>
+      <input type="time" id="horaagendamento" class="campo" required>
+      <input type="number" id="valortatuagem" class="campo" placeholder="Valor (R$)" step="0.01" min="0">
 
-    <!-- Esse bloco começa escondido — só aparece quando estamos editando um agendamento existente -->
-    <div class="col-md-3" id="bloco-status" style="display: none;">
-      <select id="status" class="form-select">
-        <option value="pendente">Pendente</option>
-        <option value="confirmado">Confirmado</option>
-        <option value="concluido">Concluído</option>
-        <option value="cancelado">Cancelado</option>
-      </select>
+      <div class="campo-grupo">
+        <textarea id="descricaotatuagem" class="campo campo-texto" placeholder="Descrição da tatuagem"></textarea>
+      </div>
+
+      <div class="campo-grupo">
+        <label class="campo-label" for="desenho">Desenho aprovado (imagem)</label>
+        <input type="file" id="desenho" class="campo campo-arquivo" accept="image/*">
+      </div>
+
+      <!-- Esse bloco começa escondido — só aparece quando estamos editando um agendamento existente -->
+      <div id="bloco-status" style="display: none;">
+        <select id="status" class="campo">
+          <option value="pendente">Pendente</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="concluido">Concluído</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+
+      <button id="btn-submit-agendamento" type="submit" class="btn-cadastrar">Cadastrar</button>
+    </form>
+
+    <!-- Tabela onde os agendamentos vão aparecer -->
+    <div class="tabela-wrapper">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Tatuador</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Desenho</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpo-tabela">
+          <!-- os agendamentos vão aparecer aqui -->
+        </tbody>
+      </table>
     </div>
 
-    <div class="col-md-2">
-      <button id="btn-submit-agendamento" type="submit" class="btn btn-primary w-100">Cadastrar</button>
-    </div>
-  </form>
-
-  <!-- Tabela onde os agendamentos vão aparecer -->
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Cliente</th>
-        <th>Tatuador</th>
-        <th>Data</th>
-        <th>Hora</th>
-        <th>Valor</th>
-        <th>Status</th>
-        <th>Desenho</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="corpo-tabela">
-      <!-- os agendamentos vão aparecer aqui -->
-    </tbody>
-  </table>
+  </main>
 
   <script src="js/auth.js"></script>
   <script src="js/agendamentos.js"></script>
 
 </body>
-
-<nav class="navbar navbar-dark bg-dark mb-4">
-  <div class="container">
-    <span class="navbar-brand">Estúdio de Tatuagem</span>
-    <div>
-      <a href="clientes.html" class="text-light me-3">Clientes</a>
-      <a href="senioridade.html" class="text-light me-3">Senioridade</a>
-      <a href="estilos.html" class="text-light me-3">Estilos</a>
-      <a href="tatuadores.html" class="text-light me-3">Tatuadores</a>
-      <a href="agendamentos.html" class="text-light me-3">Agendamentos</a>
-      <button onclick="sair()" class="btn btn-outline-light btn-sm">Sair</button>
-    </div>
-  </div>
-</nav>
 </html>
